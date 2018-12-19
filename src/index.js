@@ -20,7 +20,6 @@ let textCharacterization = (text, opts) => {
     }
   };
   let appendKey = ( m, k, v ) => {
-    console.log( k, v);
     if( m.has( k ) ){
       m.set(k, m.get(k).add(v) );
     } else {
@@ -64,9 +63,12 @@ let defaults = {
 
 let entry = (text, opts) => {
   opts = assign({}, defaults, opts);
-  console.log(textCharacterization(text, opts));
+  let result = textCharacterization(text, opts);
+  return result;
 };
 
 entry(`
 signal transduction involved in cell cycle checkpoint. signal transduction involved in DNA integrity checkpoint. signal transduction involved in mitotic cell cycle checkpoint. signal transduction involved in mitotic DNA integrity checkpoint. positive regulation of cell cycle arrest. G1 DNA damage checkpoint. mitotic DNA damage checkpoint. signal transduction involved in DNA damage checkpoint. signal transduction involved in mitotic DNA damage checkpoint. intracellular signal transduction involved in G1 DNA damage checkpoint. mitotic G1/S transition checkpoint. mitotic G1 DNA damage checkpoint. signal transduction involved in mitotic G1 DNA damage checkpoint. DNA damage response, signal transduction by p53 class mediator resulting in cell cycle arrest
 `, {})
+
+module.exports = entry;
