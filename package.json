@@ -1,0 +1,33 @@
+{
+  "name": "nebula",
+  "version": "0.1.0",
+  "description": "Compute word cloud information from text",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d2fong/Nebula.git"
+  },
+  "keywords": [
+    "word",
+    "cloud",
+    "cluster",
+    "algorithm",
+    "tag",
+    "keyword",
+    "categorization"
+  ],
+  "author": "Dylan Fong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/d2fong/Nebula/issues"
+  },
+  "homepage": "https://github.com/d2fong/Nebula#readme",
+  "dependencies": {
+    "lodash.assign": "^4.2.0",
+    "lodash.uniq": "^4.5.0",
+    "porter-stemmer": "^0.9.1"
+  }
+}
