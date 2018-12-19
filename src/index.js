@@ -5,7 +5,7 @@ const { stemmer } = require('porter-stemmer');
 const stopWords = require('./stopwords.json');
 const flaggedWords = require('./flaggedwords.json');
 
-let textCharacterization = (text, opts) => {
+let textCharacterization = (text) => {
   let delimiterRegex = /[\t \n\r\f!\\#$%&()*+,.<=>?@[^\\\]`_{|}~\\'"]/;
   let filterWords = new Set([...stopWords, flaggedWords]);
   let wordPairMap = new Map();
@@ -27,7 +27,7 @@ let textCharacterization = (text, opts) => {
     }
   };
 
-  let wordStems = uniq(text.split(delimiterRegex).filter( word => !filterWords.has(word) ).map( word => {
+  let wordStems = uniq(text.split(delimiterRegex).filter( word => !filterWords.has(word) && word !== '' ).map( word => word.toLowerCase() ).map( word => {
     incrKey( wordOccurenceMap, word );
     let wordStem = stemmer(word);
     appendKey( stemToWordsMap, wordStem, word );
@@ -61,14 +61,12 @@ let defaults = {
   useStemming: true
 };
 
-let entry = (text, opts) => {
+let generateClusterLabels = (text, opts) => {
   opts = assign({}, defaults, opts);
   let result = textCharacterization(text, opts);
   return result;
 };
 
-entry(`
-signal transduction involved in cell cycle checkpoint. signal transduction involved in DNA integrity checkpoint. signal transduction involved in mitotic cell cycle checkpoint. signal transduction involved in mitotic DNA integrity checkpoint. positive regulation of cell cycle arrest. G1 DNA damage checkpoint. mitotic DNA damage checkpoint. signal transduction involved in DNA damage checkpoint. signal transduction involved in mitotic DNA damage checkpoint. intracellular signal transduction involved in G1 DNA damage checkpoint. mitotic G1/S transition checkpoint. mitotic G1 DNA damage checkpoint. signal transduction involved in mitotic G1 DNA damage checkpoint. DNA damage response, signal transduction by p53 class mediator resulting in cell cycle arrest
-`, {})
-
-module.exports = entry;
+module.exports = {
+  generateClusterLabels
+};
